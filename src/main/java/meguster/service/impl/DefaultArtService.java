@@ -1,13 +1,14 @@
 package meguster.service.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import meguster.data.entity.Art;
 import meguster.data.repository.ArtRepository;
 import meguster.service.api.ArtService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,26 +20,35 @@ public class DefaultArtService implements ArtService {
 	@Override
 	public Art getRandomArtForLoggedUser() {
 
-		long count = artRepository.count();
+		Set<Long> ids = new HashSet<>();
 		
-		int number = (int) (Math.random()*count);
-		
-		final PageRequest pageRequest = new PageRequest(number, 1, Direction.DESC, "id");
-
-		Page<Art> artsPage = artRepository.findAll(pageRequest);
-		
-		if (artsPage.getContent().size()>0) {
-			return artsPage.getContent().get(0);
+		List<Art> list;
+		if (ids.size()>0) {
+			list = artRepository.getRandomArtNotInIds(ids);
+		} else {
+			list = artRepository.getRandomArt();
 		}
-				
-		return null;
 		
-//		// TODO mock
-//		Art art = new Art();
-//		art.setType(ArtType.IMAGE);
-//		art.setUrl("http://d26uhratvi024l.cloudfront.net/gsc/FGO4LW/33/73/ef/3373efd17b764de29231be2c9325fac0/images/page_1/u16.jpg?token=fe542caff01fd3fa471c5b27a175f171");
+		if (list==null || list.size()==0) {
+			return null;
+		}
+		int count = list.size();
+		
+//		long count = artRepository.count();
 //		
-//		return art;
+		int number = (int) (Math.random()*count);
+		return list.get(number);
+		
+//		
+//		final PageRequest pageRequest = new PageRequest(number, 1, Direction.DESC, "id");
+//
+//		Page<Art> artsPage = artRepository.findAll(pageRequest);
+//		
+//		if (artsPage.getContent().size()>0) {
+//			return artsPage.getContent().get(0);
+//		}
+//				
+//		return null;
 	}
 
 }
