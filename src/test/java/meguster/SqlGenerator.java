@@ -19,21 +19,21 @@ public class SqlGenerator {
 		URL url = Resources.getResource("youtube-links.txt");
 		List<String> youtubeEmbLinks = Resources.readLines(url, Charset.defaultCharset());
 
-		StringBuilder sb = new StringBuilder("insert into aoc.art_art(type, url) \n values \n");
+		StringBuilder sb = new StringBuilder("insert into art(id, type, url) \n values \n");
 
 		for (String embUrl : youtubeEmbLinks) {
-			sb.append("('YOUTUBE', '" + embUrl + "'),\n");
+			sb.append("(nextval('art_id_seq'::regclass), 1, '" + embUrl + "'),\n");
 		}
 
 		for (String imgName : new File("src/main/resources/static/business-img").list()) {
-			sb.append("('IMAGE', '" + imgName + "'),\n");
+			sb.append("(nextval('art_id_seq'::regclass), 0, '" + imgName + "'),\n");
 		}
 
 		System.out.println(sb.substring(0, sb.length() - 2) + ";");
 		
-		System.out.println("DELETE FROM aoc.art_art WHERE art_id in ( ");
-		System.out.println("select art1.art_id from aoc.art_art art1, aoc.art_art art2 where art1.art_id > art2.art_id and art1.type = art2.type and art1.url = art2.url ");
-		System.out.println(" );");
+//		System.out.println("DELETE FROM aoc.art_art WHERE art_id in ( ");
+//		System.out.println("select art1.art_id from aoc.art_art art1, aoc.art_art art2 where art1.art_id > art2.art_id and art1.type = art2.type and art1.url = art2.url ");
+//		System.out.println(" );");
 		
 	}
 }
