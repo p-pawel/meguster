@@ -25,7 +25,7 @@ public class SqlGenerator {
 			sb.append("('YOUTUBE', '" + embUrl + "'),\n");
 		}
 
-		for (String imgName : new File("src/main/resources/static/images").list()) {
+		for (String imgName : new File("src/main/resources/static/business-img").list()) {
 			sb.append("('IMAGE', '" + imgName + "'),\n");
 		}
 
