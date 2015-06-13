@@ -13,16 +13,16 @@ public class QuestionController {
 
 	@Autowired
 	ArtService artService;
-	
-	@RequestMapping("/question")
+
+	@RequestMapping(value = "/question")
 	public String getQuestion(Model model) {
-		
+
 		System.out.println("getQuestion");
-		
+
 		Art art = artService.getRandomArtForLoggedUser();
-		
+
 		model.addAttribute("art", art);
-			
+
 		return "question";
 	}
 }

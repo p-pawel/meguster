@@ -92,7 +92,7 @@
         <img id="u7_img" class="img " src="resources/images/transparent.gif"/>
         <!-- Unnamed () -->
         <div id="u8" class="text">
-          <p><span>Znajdź ludzi o podobnym guście </span></p><p><span></span><span>i miejsca gdzie moglibyście się spotkać</span></p>
+          <p><span>Znajdź ludzi o podobnym guście <br>i miejsca, gdzie moglibyście się spotkać</span></p>
         </div>
       </div>
 
@@ -101,7 +101,7 @@
         <img id="u9_img" class="img " src="resources/images/transparent.gif"/>
         <!-- Unnamed () -->
         <div id="u10" class="text">
-          <p><span>zaloguj się&nbsp; </span></p>
+          <p><span>zaloguj&nbsp; </span></p>
         </div>
       </div>
 
@@ -155,7 +155,7 @@
         <img id="u21_img" class="img " src="resources/images/transparent.gif"/>
         <!-- Unnamed () -->
         <div id="u22" class="text">
-          <p><span>Odkrywaj miejsca gdzie możecie się spotkać </span></p><p><span>&nbsp;</span></p>
+          <p><span>Odkrywaj miejsca, gdzie możecie się spotkać </span></p><p><span>&nbsp;</span></p>
         </div>
       </div>
 
