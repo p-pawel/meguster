@@ -17,5 +17,12 @@ public class DefaultUserService implements UserService {
 	public MegusterUser findUser(String name) {
 		return userRepository.findFirstByName(name);
 	}
+
+	@Override
+	public MegusterUser saveNewUser(String name) {
+		MegusterUser user = new MegusterUser();
+		user.setName(name);
+		return userRepository.save(user);
+	}
 	
 }
