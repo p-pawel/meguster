@@ -4,6 +4,6 @@ import meguster.data.entity.Art;
 
 public interface ArtService {
 
-	Art getRandomArtForLoggedUser();
+	Art getRandomArtForLoggedUser(String username);
 
 }

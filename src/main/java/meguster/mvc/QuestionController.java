@@ -27,7 +27,7 @@ public class QuestionController {
 
 		System.out.println("getQuestion");
 
-		Art art = artService.getRandomArtForLoggedUser();
+		Art art = artService.getRandomArtForLoggedUser(null);
 
 		model.addAttribute("art", art);
 
@@ -41,17 +41,22 @@ public class QuestionController {
 		String answer = req.getParameter("answer");
 		String art_id = req.getParameter("art_id");
 
+		username = getUserNameFromCookie(req, username);
+
+		answerService.saveAnswer(username, Long.valueOf(art_id), Integer.parseInt(answer));
+
+		Art art = artService.getRandomArtForLoggedUser(username);
+		model.addAttribute("art", art);
+		return "question";
+	}
+
+	private String getUserNameFromCookie(HttpServletRequest req, String username) {
 		for (Cookie c : req.getCookies()) {
 			if (c.getName().equals("username")) {
 				username = c.getValue();
 				break;
 			}
 		}
-
-		answerService.saveAnswer(username, Long.valueOf(art_id), Integer.parseInt(answer));
-
-		Art art = artService.getRandomArtForLoggedUser();
-		model.addAttribute("art", art);
-		return "question";
+		return username;
 	}
 }

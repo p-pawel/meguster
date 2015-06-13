@@ -14,7 +14,6 @@ public interface ArtRepository extends PagingAndSortingRepository<Art, Long> {
 	@Query("select a from Art a where a.id not in (:art_ids)")
 	List<Art> getRandomArtNotInIds(@Param("art_ids") Set<Long> ids);
 
-
 	@Query("select a from Art a")
 	List<Art> getRandomArt();
 
