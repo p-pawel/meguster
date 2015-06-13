@@ -47,12 +47,17 @@
       $axure.utils.getReloadPath = function() { return 'resources/reload.html'; };
       
       function saveAnswer(value) {
-    	  alert(value);
+    	  $("#answer_value_id").val(value);
+    	  $("#questionFormId").submit();
       }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   </head>
   <body>
+  	<form id="questionFormId" style="display: none;" action="question" method="post">
+  		<input type="text" name="art_id" value="123">
+  		<input type="text" id="answer_value_id" name="answer" value="-10">
+  	</form>
     <div id="base" class="">
 
       <!-- Unnamed (Shape) -->
