@@ -30,5 +30,10 @@ public class SqlGenerator {
 		}
 
 		System.out.println(sb.substring(0, sb.length() - 2) + ";");
+		
+		System.out.println("DELETE FROM aoc.art_art WHERE art_id in ( ");
+		System.out.println("select art1.art_id from aoc.art_art art1, aoc.art_art art2 where art1.art_id > art2.art_id and art1.type = art2.type and art1.url = art2.url ");
+		System.out.println(" );");
+		
 	}
 }
