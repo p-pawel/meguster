@@ -19,12 +19,16 @@ public class SqlGenerator {
 		URL url = Resources.getResource("youtube-links.txt");
 		List<String> youtubeEmbLinks = Resources.readLines(url, Charset.defaultCharset());
 
+		StringBuilder sb = new StringBuilder("insert into aoc.art_art(type, url) \n values \n");
+
 		for (String embUrl : youtubeEmbLinks) {
-			// TODO
+			sb.append("('YOUTUBE', '" + embUrl + "'),\n");
 		}
 
 		for (String imgName : new File("src/main/resources/static/images").list()) {
-			// TODO
+			sb.append("('IMAGE', '" + imgName + "'),\n");
 		}
+
+		System.out.println(sb.substring(0, sb.length() - 2) + ";");
 	}
 }
