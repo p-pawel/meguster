@@ -10,6 +10,6 @@
 </head>
 <body>
 
-
+${art.url}
 </body>
 </html>
