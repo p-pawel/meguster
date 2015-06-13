@@ -63,7 +63,7 @@
   </head>
   <body>
   	<form id="questionFormId" style="display: none;" action="question" method="post">
-  		<input type="text" name="art_id" value="123">
+  		<input type="text" name="art_id" value="${art.id}">
   		<input type="text" id="answer_value_id" name="answer" value="-10">
   	</form>
     <div id="base" class="">
