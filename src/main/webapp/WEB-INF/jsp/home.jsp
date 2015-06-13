@@ -39,10 +39,18 @@
     <script src="files/home/data.js"></script>
     <script src="resources/scripts/axure/legacy.js"></script>
     <script src="resources/scripts/axure/viewer.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return 'resources/images/transparent.gif'; };
       $axure.utils.getOtherPath = function() { return 'resources/Other.html'; };
       $axure.utils.getReloadPath = function() { return 'resources/reload.html'; };
+      
+      function setLogin() {
+    	  var username = prompt("Jak Ci na imię, kolego?");
+    	  if (username) $.cookie("username", username);
+      }
     </script>
   </head>
   <body>
@@ -101,7 +109,7 @@
         <img id="u9_img" class="img " src="resources/images/transparent.gif"/>
         <!-- Unnamed () -->
         <div id="u10" class="text">
-          <p><span>zaloguj&nbsp; </span></p>
+          <p><span onmouseover="cursor: pointer" onclick="setLogin();">zaloguj&nbsp; </span></p>
         </div>
       </div>
 
