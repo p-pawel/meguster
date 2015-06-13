@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
   <head>
@@ -134,7 +135,12 @@
 
       <!-- Unnamed (Image) -->
       <div id="u16" class="ax_image">
-        <img id="u16_img" class="img " src="images/page_1/u16.jpg"/>
+      	<c:if test="${art.type == 'IMAGE'}">
+        	<img id="u16_img" class="img " src="business-img/${art.url}"/>
+        </c:if>
+        <c:if test="${art.type != 'IMAGE'}">
+        	${art.url}
+        </c:if>
         <!-- Unnamed () -->
         <div id="u17" class="text">
           <p><span></span></p>
