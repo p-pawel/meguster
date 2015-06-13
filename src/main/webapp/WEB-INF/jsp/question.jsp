@@ -13,7 +13,7 @@
 </head>
 <body>
 
-	<c:if test="${art eq null}">
+<c:if test="${art eq null}">
 Nie ma więcej pytań, tu będą wyniki
 </c:if>
 	<c:if test="${art ne null}">
