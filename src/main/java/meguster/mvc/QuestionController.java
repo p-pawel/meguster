@@ -1,7 +1,7 @@
 package meguster.mvc;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import meguster.data.entity.Art;
 import meguster.service.api.AnswerService;
@@ -10,12 +10,16 @@ import meguster.service.api.ArtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class QuestionController {
 
+	private final static String USER_NAME_COOKIE = "username";
+	
 	@Autowired
 	ArtService artService;
 
@@ -23,40 +27,42 @@ public class QuestionController {
 	AnswerService answerService;
 
 	@RequestMapping(value = "/question")
-	public String getQuestion(Model model) {
+	public String getQuestion(
+			Model model,
+			@RequestParam(required = false, value = "username") String forceUserName,
+			@CookieValue(defaultValue = "ArtOfCode", value = USER_NAME_COOKIE) String cookieUserName,
+			HttpServletResponse httpServletResponse) {
 
-		System.out.println("getQuestion");
+		String username = forceUserName != null ? forceUserName
+				: cookieUserName;
 
-		Art art = artService.getRandomArtForLoggedUser(null);
+		saveUserNameCookie(httpServletResponse, username);
 
-		model.addAttribute("art", art);
+		Art art = artService.getRandomArtForLoggedUser(username);
 
-		return "question";
+		if (art == null) {
+			return "redirect:http://fgo4lw.axshare.com/listing_osob.html";
+		} else {
+			model.addAttribute("art", art);
+			return "question";
+		}
+	}
+
+	private void saveUserNameCookie(HttpServletResponse httpServletResponse,
+			String username) {
+		Cookie cookie = new Cookie(USER_NAME_COOKIE, username);
+		httpServletResponse.addCookie(cookie);
 	}
 
 	@RequestMapping(value = "/question", method = RequestMethod.POST)
-	public String nextAnswer(Model model, HttpServletRequest req) {
-		System.out.println("nextAnswer");
-		String username = "a";
-		String answer = req.getParameter("answer");
-		String art_id = req.getParameter("art_id");
+	public String nextAnswer(
+			@RequestParam(required = false, value = "answer") Integer answer,
+			@RequestParam(required = false, value = "art_id") Long artId,
+			@CookieValue(defaultValue = "ArtOfCode", value = USER_NAME_COOKIE) String cookieUserName) {
 
-		username = getUserNameFromCookie(req, username);
+		answerService.saveAnswer(cookieUserName, artId, answer);
 
-		answerService.saveAnswer(username, Long.valueOf(art_id), Integer.parseInt(answer));
-
-		Art art = artService.getRandomArtForLoggedUser(username);
-		model.addAttribute("art", art);
-		return "question";
+		return "redirect:question";
 	}
 
-	private String getUserNameFromCookie(HttpServletRequest req, String username) {
-		for (Cookie c : req.getCookies()) {
-			if (c.getName().equals("username")) {
-				username = c.getValue();
-				break;
-			}
-		}
-		return username;
-	}
 }
